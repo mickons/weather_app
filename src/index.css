@@ -23,19 +23,20 @@ body {
 
 main {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px;
 }
 
 .search_box {
-  width: 500px;
+  width: 355px;
   border: aliceblue;
-  background-color: aliceblue;
+  background-color: white;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  margin-top: 300px;
-  margin-left: 500px;
 }
 
 .search_box .search_bar {
@@ -59,7 +60,7 @@ main {
 }
 
 .location_box .location {
-  color: #FFF;
+  color: #fff;
   font-size: 32px;
   font-weight: 500;
   text-align: center;
@@ -67,19 +68,17 @@ main {
 }
 
 .location_box .date {
-  color: #FFF;
-  font-size: 20px;
+  color: #fff;
+  font-size: 16px;
   font-weight: 300;
-  font-style: italic;
   text-align: center;
 }
 
 .weather {
   text-align: center;
-  color: #FFF;
+  color: #fff;
   font-size: 30px;
   font-weight: 700;
-  
 }
 
 .weather_box {
@@ -96,7 +95,7 @@ main {
 
   padding: 15px 25px;
 
-  color: #FFF;
+  color: #fff;
   font-size: 40px;
   font-weight: 900;
 

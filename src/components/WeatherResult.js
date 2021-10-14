@@ -3,10 +3,6 @@ import clouds from "../assets/clouds.png";
 import CountrySelector from "../components/CountrySelector";
 
 const WeatherResult = () => {
-  const [showDisconnectWalletModal, setShowDisconnectWalletModal] = useState(
-    false
-  );
-
   return (
     <div className="app_results">
       <main>

@@ -12,7 +12,8 @@ const App = () => {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
-  //api.openweathermap.org/data/2.5/weather?q=paris&units=metric&APPID=d58aba219971924715b5ebbfde38970d
+  //api.openweathermap.org/data/2.5/weather?q=belgrade&units=metric&APPID=d58aba219971924715b5ebbfde38970d
+  //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=daily&appid=d58aba219971924715b5ebbfde38970d
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,10 +22,27 @@ const App = () => {
       .then((result) => {
         setQuery("");
         setWeather(result);
+        console.log(result);
       });
   };
 
-  const dayBuilder = (d) => {
+  console.log(weather);
+
+  const dateBuilder = (d) => {
+    let months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     let days = [
       "Monday",
       "Tuesday",
@@ -36,8 +54,11 @@ const App = () => {
     ];
 
     let day = days[d.getDay()];
+    let month = months[d.getMonth()];
+    let date = d.getDate();
+    //let year = d.getFullYear();
 
-    return `${day}`;
+    return `${month} ${day} ${date} `;
   };
 
   //   const handleSubmit = (e) => {
@@ -52,33 +73,32 @@ const App = () => {
   // }
 
   return (
-    <div className="app">
-      <main>
-        <div className="d-flex flex-row">
-          <div className="search_box">
-            <img src={clouds} className="cloud" />
-            <div onSubmit={handleSubmit} className="d-flex flex-row">
-              <CountrySelector className="country_selector" />
-              <input
-                type="text"
-                className="search_bar"
-                placeholder="Please enter your location..."
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <input type="submit" />
-            </div>
-          </div>
+    <div className="app_results">
+      <main className="main">
+        <div className="search_box">
+          <img src={clouds} className="cloud" alt="" />
+          <form onSubmit={handleSubmit}>
+            {/* <CountrySelector className="country_selector" /> */}
+            <input
+              type="text"
+              className="search_bar"
+              placeholder="Please enter your location..."
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            {/* <input type="submit" /> */}
+          </form>
         </div>
+
         <div>
           <div className="location_box">
-            <div className="location">Novi Sad</div>
-            <div className="date">13 October</div>
+            <div className="location">{weather.name}</div>
+            <div className="date">{dateBuilder(new Date())}</div>
           </div>
           <div className="weather_box">
-            <div className="weather">Sunny</div>
-            <div className="temp">10 °C</div>
+            <div className="temp">{weather.main && weather.main.temp}°C</div>
           </div>
         </div>
+        <div className="daily_temp"></div>
         {/* {showWeatherResult && (
           <WeatherResult
             showModal={showWeatherResult}
