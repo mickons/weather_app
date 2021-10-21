@@ -79,7 +79,7 @@ const App = () => {
           <div className="weather_box">
             <div className="temp">{weather.main && weather.main.temp} °C</div>
           </div>
-          <div className="weather">
+          <div className="weather_conditions">
             {weather.weather && weather.weather[0].main}
           </div>
         </div>
