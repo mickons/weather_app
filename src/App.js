@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import clouds from "../src/assets/clouds.png";
-import CountrySelector from "../src/components/CountrySelector";
-import WeatherResult from "../src/components/WeatherResult";
+import ForecastWeather from "./components/ForecastWeather";
 
 const api = {
   key: "d58aba219971924715b5ebbfde38970d",
@@ -12,13 +11,11 @@ const App = () => {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
 
-  //api.openweathermap.org/data/2.5/weather?q=belgrade&units=metric&APPID=d58aba219971924715b5ebbfde38970d
-  //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=daily&appid=d58aba219971924715b5ebbfde38970d
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+    fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
       .then((res) => res.json())
+
       .then((result) => {
         setQuery("");
         setWeather(result);
@@ -26,22 +23,20 @@ const App = () => {
       });
   };
 
-  console.log(weather);
-
   const dateBuilder = (d) => {
     let months = [
-      "January",
-      "February",
-      "March",
-      "April",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
       "May",
       "June",
       "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     let days = [
       "Monday",
@@ -56,21 +51,9 @@ const App = () => {
     let day = days[d.getDay()];
     let month = months[d.getMonth()];
     let date = d.getDate();
-    //let year = d.getFullYear();
 
     return `${month} ${day} ${date} `;
   };
-
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-  //     .then((res) => res.json())
-  //         .then((result) => {
-  //           setQuery("");
-  //           setWeather(result);
-  //     console.log("enter");
-  //   }
-  // }
 
   return (
     <div className="app_results">
@@ -78,14 +61,13 @@ const App = () => {
         <div className="search_box">
           <img src={clouds} className="cloud" alt="" />
           <form onSubmit={handleSubmit}>
-            {/* <CountrySelector className="country_selector" /> */}
             <input
               type="text"
               className="search_bar"
               placeholder="Please enter your location..."
               onChange={(e) => setQuery(e.target.value)}
+              value={query}
             />
-            {/* <input type="submit" /> */}
           </form>
         </div>
 
@@ -95,17 +77,15 @@ const App = () => {
             <div className="date">{dateBuilder(new Date())}</div>
           </div>
           <div className="weather_box">
-            <div className="temp">{weather.main && weather.main.temp}°C</div>
+            <div className="temp">{weather.main && weather.main.temp} °C</div>
+          </div>
+          <div className="weather">
+            {weather.weather && weather.weather[0].main}
           </div>
         </div>
-        <div className="daily_temp"></div>
-        {/* {showWeatherResult && (
-          <WeatherResult
-            showModal={showWeatherResult}
-            setShowModal={setShowWeatherResult}
-          />
-        )}
-        <button onClick={() => setShowWeatherResult(true)}>show result</button> */}
+        <div className="weekly_forecast">
+          <ForecastWeather />
+        </div>
       </main>
     </div>
   );
